@@ -1,0 +1,139 @@
+\documentclass[10pt]{article}
+
+\usepackage[letter paper, margin=.5in]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{multicol}
+
+
+\newcommand{\bd}[1]{\mathbf{#1}}	%bolding symbols
+\newcommand{\mean}[1]{\bar{#1}}
+\newcommand{\iSum}[2]{\sum_{i= #1}^{#2}}
+\newcommand{\jSum}[2]{\sum_{j= #1}^{#2}}
+\newcommand{\pN}[2]{\mathcal{N}(#1, #2)}
+\newcommand{\abs}[1]{\lvert#1\rvert}
+
+
+\begin{document}
+\begin{multicols}{2}
+\section*{One Population t Test}
+Test Statistic:\\
+$$t = \frac{\mean{x}-\mu_{0}}{\frac{S}{\sqrt{n}}} \sim \pN{0}{1}$$
+\begin{enumerate}
+	\item $H_{0}:\mu\leq\mu_{0}\quad vs. \quad H_{I}:\mu_{0}>\mu_{0}$
+	\\Reject $H_{0}$ if $t > t_{\alpha, n-1}$
+	\item $H_{0}:\mu\geq\mu_{0}\quad vs. \quad H_{I}:\mu_{0}<\mu_{0}$
+	\\Reject $H_{0}$ if $t < _{\alpha, n-1}$
+	\item $H_{0}:\mu = \mu_{0}\quad vs. \quad H_{I}:\mu_{0}\neq\mu_{0}$
+	\\Reject $H_{0}$ if $\abs{t} > t_{\frac{\alpha}{2}, n-1}$
+\end{enumerate}
+
+\section*{Two Population t Test}
+Test Statistic:\\
+$$t = \frac{\mean{x}-\mean{y}}{S_p\sqrt{\frac{1}{n_{1}}+\frac{1}{n_{2}}}}$$
+\begin{enumerate}
+	\item $H_{0}:\mu\leq\mu_{0}\quad vs. \quad H_{I}:\mu_{0}>\mu_{0}$
+	\\Reject $H_{0}$ if $t > t_{\alpha, n_{1}+n_{2}-2}$
+	\item $H_{0}:\mu\geq\mu_{0}\quad vs. \quad H_{I}:\mu_{0}<\mu_{0}$
+	\\Reject $H_{0}$ if $t < _{\alpha, n_{1}+n_{2}-2}$
+	\item $H_{0}:\mu = \mu_{0}\quad vs. \quad H_{I}:\mu_{0}\neq\mu_{0}$
+	\\Reject $H_{0}$ if $\abs{t} > t_{\frac{\alpha}{2}, n_{1}+n_{2}-2}$
+\end{enumerate}
+
+\section*{NonParametric One Population Test}
+Test Statistic:\\
+Let y = \# of observations that excede $\eta_{0}$ among the population.\\
+$$Z = \frac{y-\frac{n}{2}}{\sqrt{\frac{n}{4}}}$$
+\begin{enumerate}
+	\item $H_{0}:\mu=\mu_{0}\quad vs. \quad H_{I}:\mu_{0}>\mu_{0}$
+	\\Reject $H_{0}$ if $Z > Z_{\alpha}$
+	\item $H_{0}:\mu=\mu_{0}\quad vs. \quad H_{I}:\mu_{0}<\mu_{0}$
+	\\Reject $H_{0}$ if $Z < -Z_{\alpha}$
+	\item $H_{0}:\mu=\mu_{0}\quad vs. \quad H_{I}:\mu_{0}\neq\mu_{0}$
+	\\Reject $H_{0}$ if $\abs{Z} > Z_{\alpha}$
+\end{enumerate}
+
+\section*{NonParametric Two Population Test}
+Method: Form n differences $d_{i}=x_{i}-y_{i}$ for i = 1, 2, \ldots, n and rank the absolute differences $\abs{d_{i}}$ in increasing order.  Write the ranks of $\abs{d_{i}}$ as 1 to n, then attack the sign of $d_{i}$ to its rank.  The ranks with the appropriate signs attached are called the signed ranks, $R_{i}$.  If a tie occurs, replace tied ranks by their average rank.  Compute the sum of the signed ranks, $T = \iSum{1}{n}R_{i}$.  If $d_{i} = 0$ remove it from the calculation and reduce n accordingly.\\
+Test Statistic:\\
+$$Z = \frac{T}{\sqrt{\frac{n(n+1)(2n+1)}{6}}}$$
+\begin{enumerate}
+	\item $H_{0}:\mu=\mu_{0}\quad vs. \quad H_{I}:\mu_{0}>\mu_{0}$
+	\\Reject $H_{0}$ if $Z > Z_{\alpha}$
+	\item $H_{0}:\mu=\mu_{0}\quad vs. \quad H_{I}:\mu_{0}<\mu_{0}$
+	\\Reject $H_{0}$ if $Z < -Z_{\alpha}$
+	\item $H_{0}:\mu=\mu_{0}\quad vs. \quad H_{I}:\mu_{0}\neq\mu_{0}$
+	\\Reject $H_{0}$ if $\abs{Z} > Z_{\alpha}$
+\end{enumerate}
+Exact Test: 
+	\\$T_{+}$ = sum of the positive ranks
+	\\$T_{-}$ = sum of the negative ranks
+	\\$T_{min} = Min(T_{+}, T_{-})$
+\begin{enumerate}
+	\item $H_{0}:\mu=\mu_{0}\quad vs. \quad H_{I}:\mu_{0}>\mu_{0}$
+	\\Reject $H_{0}$ if $T_{-} < T_{\alpha(1), n}$
+	\item $H_{0}:\mu=\mu_{0}\quad vs. \quad H_{I}:\mu_{0}<\mu_{0}$
+	\\Reject $H_{0}$ if $T_{+} < T_{\alpha(1), n}$
+	\item $H_{0}:\mu=\mu_{0}\quad vs. \quad H_{I}:\mu_{0}\neq\mu_{0}$
+	\\Reject $H_{0}$ if $T_{min} > T_{\alpha(2), n}$
+\end{enumerate}
+
+\section*{Mann-Whitney Test}
+Used to determine if there is a difference between two independent populations.  Let $x_{1}, x_{2}, \ldots, x_{n_{2}}$ be a random sample of size $n_{2}$ from the first population and $y_{1}, y_{2}, \ldots, y_{n_{2}}$ be a random sample of size $n_{2}$ from the second population.\\
+Method:\\
+Rank the combined sample observations from lowest to highest, with tied values assigned as the average of the rankings.\\
+compute $T_{1}$ - the sum of the ranks of the first sample.\\
+Test Statistic:\\
+Let $\mu_{T_{1}} = \frac{1}{2}n_{1}(n_{1}+n_{2}+1)$ and\\
+$\sigma_{T_{1}} = \sqrt{\frac{1}{12}n_{1}n_{2}(n_{1}+n_{2}+1)}$\\
+$$Z = \frac{T_{1}-\mu_{T_{1}}}{\sigma_{T_{1}}}$$
+\begin{enumerate}
+	\item $H_{0}:\mu=\mu_{0}\quad vs. \quad H_{I}:\mu_{0}>\mu_{0}$
+	\\Reject $H_{0}$ if $Z > Z_{\alpha}$
+	\item $H_{0}:\mu=\mu_{0}\quad vs. \quad H_{I}:\mu_{0}<\mu_{0}$
+	\\Reject $H_{0}$ if $Z < -Z_{\alpha}$
+	\item $H_{0}:\mu=\mu_{0}\quad vs. \quad H_{I}:\mu_{0}\neq\mu_{0}$
+	\\Reject $H_{0}$ if $\abs{Z} > Z_{\alpha}$
+\end{enumerate}
+
+\section*{One Way ANOVA}
+Total number of observations: $$N = n_{1} + n_{2} + \ldots + n_{k}$$
+Grand total: $$G = T_{1} + T_{2} + \ldots + T_{k}$$
+Correction Term: $$CT = \frac{G^{2}}{N}$$
+Treatment Sum of Squares: $$SS_{TR} = \left( \frac{T_{1}^{2}}{n_{1}} + \frac{T_{2}^{2}}{n_{2}} + \ldots + \frac{T_{k}^{2}}{n_{k}} \right) -CT$$
+Total Sum of Squares: $$SS_{T} = \iSum{1}{k}\jSum{1}{n_{i}}y^{2}_{ij}-CT$$
+Error Sum of Squares: $$SS_{E} = SS_{T} - SS_{TR}$$
+ANOVA Table:
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|}
+	\hline
+	Source & dof & SS & MS & F \\
+	\hline
+	\hline
+	Treatment & $k-1$ & $SS_{TR}$ & $MS_{TR} = \frac{SS_{TR}}{k-1}$ & $F = \frac{MS_{TR}}{MS_{E}}$\\
+	\hline
+	Error & $N - k$ & $SS_{E}$ & $MS_{E}$ & \\
+	\hline
+	\hline
+	Total & $N - 1$ & $SS_{T}$ & & \\
+	\hline
+\end{tabular}
+\end{center}
+$H_{0}: \mu_{1}=\mu_{2}=\ldots=\mu_{k}$\\
+Reject $H_{0}$ if $F > F_{\alpha, k-1, N-k}$
+
+\section{Hartley's Test}
+$H_{0}$: $\sigma^{2}_{1} = \sigma^{2}_{2} = \ldots \sigma^{2}_{k}$ vs. $H_{I}$: At least one different\\
+Test Statistic:\\
+For $S_{i}^{2}$ = sample variance for ith population.
+$$F_{max} = \frac{max(S_{i}^{2})}{min(S_{i}^{2})}$$
+Reject $H_{0}$ if $F_{max}>F_{max(\alpha),k,\nu}$\\
+for k = number of groups \\
+and $\nu$ = $max(n_{1}-1, n_{2}-1, \ldots, n_{i}-1)$
+
+\section{Brown-Forsythe-Levene (BFL) Test}
+
+
+\end{multicols}	
+\end{document}
